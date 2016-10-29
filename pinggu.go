@@ -5,5 +5,9 @@ import (
 )
 
 func main() {
-        http.ListenAndServe(":3000", http.FileServer(http.Dir("./public")))
+    http.HandleFunc("/", static)
+}
+
+func static(w http.ResponseWriter, r *http.Request) {
+    http.ServeFile(w, r, "public/"+r.URL.Path)
 }
